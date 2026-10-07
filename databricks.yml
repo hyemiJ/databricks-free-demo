@@ -22,8 +22,6 @@ variables:
     description: The catalog to use
   schema:
     description: The schema to use
-  secret_scope:
-    description: 각 환경에 맞는 secret_scope의 name
 
 targets:
   dev:
@@ -43,20 +41,19 @@ targets:
     variables:
       catalog: workspace
       schema: ${workspace.current_user.short_name}
-      secret_scope : exchange-rate-dev
   prod:
     mode: production
     workspace:
-      host: https://dbc-8d1b8955-b21c.cloud.databricks.com
+      host: https://dbc-e94c9eea-8073.cloud.databricks.com
       # We explicitly deploy to /Workspace/Users/d1185284-4f87-4c40-9e68-ddb31350c87e to make sure we only have a single copy.
-      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/d1185284-4f87-4c40-9e68-ddb31350c87e/.bundle/${bundle.name}/${bundle.target}
+      profile: PROD_SP
     variables:
       catalog: workspace
       schema: prod
-      secret_scope : exchange-rate-prod
     git:
       origin_url: https://github.com/hyemiJ/databricks-free-demo.git
       branch: main
     permissions:
-      - service_principal_name: 11f12f56-cda9-4f28-be0d-65febad9f194
+      - service_principal_name: d1185284-4f87-4c40-9e68-ddb31350c87e
         level: CAN_MANAGE
