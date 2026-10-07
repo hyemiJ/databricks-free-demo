@@ -22,6 +22,8 @@ variables:
     description: The catalog to use
   schema:
     description: The schema to use
+  secret_scope:
+    description: 각 환경에 맞는 secret_scope의 name
 
 targets:
   dev:
@@ -41,6 +43,7 @@ targets:
     variables:
       catalog: workspace
       schema: ${workspace.current_user.short_name}
+      secret_scope : exchange-rate-dev
   prod:
     mode: production
     workspace:
@@ -50,6 +53,7 @@ targets:
     variables:
       catalog: workspace
       schema: prod
+      secret_scope : exchange-rate-prod
     permissions:
       - service_principal_name: d1185284-4f87-4c40-9e68-ddb31350c87e
         level: CAN_MANAGE
