@@ -2,10 +2,14 @@ resources:
   jobs:
     exchange_rate:
       name: exchange-rate
+      git_source:
+        git_url: https://github.com/hyemiJ/databricks-free-demo.git
+        git_provider: gitHub
+        git_branch: main
       tasks:
         - task_key: koreaexim-exchange-rate
           notebook_task:
-            notebook_path: src/exchange-rate/koreaexim-exchange-rate.ipynb
+            notebook_path: src/exchange-rate/koreaexim-exchange-rate
             base_parameters:
               search_date: "{{job.trigger.time.iso_date}}"
               secret_scope: exchange-rate-dev
