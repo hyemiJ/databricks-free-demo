@@ -24,6 +24,8 @@ variables:
     description: The schema to use
   secret_scope:
     description: 각 환경에 맞는 secret_scope name 을 사용합니다.
+  job_manager_sp_id: 
+    description: 각 환경에서 JOB을 관리하는 sp의 id를 사용합니다.
 
 targets:
   dev:
@@ -44,6 +46,7 @@ targets:
       catalog: workspace
       schema: ${workspace.current_user.short_name}
       secret_scope: exchange-rate-${bundle.target}
+      job_manager_sp_id: d1185284-4f87-4c40-9e68-ddb31350c87e
   prod:
     mode: production
     workspace:
@@ -55,9 +58,10 @@ targets:
       catalog: workspace
       schema: prod
       secret_scope: exchange-rate-${bundle.target}
+      job_manager_sp_id : 11f12f56-cda9-4f28-be0d-65febad9f194
     git:
       origin_url: https://github.com/hyemiJ/databricks-free-demo.git
       branch: main
     permissions:
-      - service_principal_name: 11f12f56-cda9-4f28-be0d-65febad9f194
+      - service_principal_name: ${var.job_manager_sp_id}
         level: CAN_MANAGE

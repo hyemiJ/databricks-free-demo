@@ -12,7 +12,7 @@ resources:
             notebook_path: src/exchange-rate/koreaexim-exchange-rate
             base_parameters:
               search_date: "{{job.trigger.time.iso_date}}"
-              secret_scope: exchange-rate-dev
+              secret_scope: ${var.secret_scope}
               secret_key: korea-exim-api-key
               data_type: AP01
               target_catalog: workspace
@@ -24,7 +24,7 @@ resources:
       queue:
         enabled: true
       run_as:
-        service_principal_name: d1185284-4f87-4c40-9e68-ddb31350c87e
+        service_principal_name: ${var.job_manager_sp_id}
       environments:
         - environment_key: Default
           spec:
