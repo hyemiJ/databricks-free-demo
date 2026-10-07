@@ -7,6 +7,10 @@ bundle:
 include:
   - resources/*.yml
 
+sync:
+  include:
+    - src/**/*.* # *.ipynb, *.sql, *.scala, ...
+
 artifacts:
   python_artifact:
     type: whl
@@ -29,6 +33,11 @@ targets:
     default: true
     workspace:
       host: https://dbc-e94c9eea-8073.cloud.databricks.com
+      # ${workspace.current_user.userName} = user 실행: haneul.kim@data-dynamics.io, sp 실행: 4abe3da9-f69d-4821-be1e-74cce377deda
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    git:
+      origin_url: https://github.com/hyemiJ/databricks-free-demo.git
+      branch: main
     variables:
       catalog: workspace
       schema: ${workspace.current_user.short_name}

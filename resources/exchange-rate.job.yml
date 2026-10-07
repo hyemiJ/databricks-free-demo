@@ -1,0 +1,28 @@
+resources:
+  jobs:
+    exchange_rate:
+      name: exchange-rate
+      tasks:
+        - task_key: koreaexim-exchange-rate
+          notebook_task:
+            notebook_path: ../src/exchange-rate/koreaexim-exchange-rate.ipynb
+            base_parameters:
+              search_date: "{{job.trigger.time.iso_date}}"
+              secret_scope: exchange-rate-dev
+              secret_key: korea-exim-api-key
+              data_type: AP01
+              target_catalog: workspace
+              target_schema: default
+              target_table: daily_exchange_rate
+              write_mode: append
+            source: GIT
+          environment_key: Default
+      queue:
+        enabled: true
+      run_as:
+        service_principal_name: d1185284-4f87-4c40-9e68-ddb31350c87e
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "6"
+      performance_target: PERFORMANCE_OPTIMIZED
